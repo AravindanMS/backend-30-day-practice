@@ -30,6 +30,26 @@ app.get("/users/:id",(req,res)=>{
   return res.status(200).json(user);
 })
 
+app.post("/users",(req,res)=>{
+  const {name,email,role} = req.body;
+
+  if(!name || !email || !role){
+    return res.status(400).json({
+      message:"Name,Email,Role is required"
+    })
+  }
+  const newUser = {
+    id:users.length + 1,
+    name,
+    email,
+    role
+  }
+
+  users.push(newUser);
+
+  return res.status(201).json(newUser)
+})
+
 const PORT = 3000;
 
 app.listen(PORT,()=>{
